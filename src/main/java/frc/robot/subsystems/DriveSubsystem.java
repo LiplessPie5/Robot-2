@@ -3,7 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveSubsystem extends SubsystemBase {
@@ -12,6 +14,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final WPI_TalonSRX frontrightMotor = new WPI_TalonSRX(1);
   private final WPI_TalonSRX backleftMotor = new WPI_TalonSRX(4);
   private final WPI_TalonSRX backrightMotor = new WPI_TalonSRX(2);
+  private AHRS navX = new AHRS(Port.kMXP);
   public DriveSubsystem() {
     frontrightMotor.setInverted(true);
   backrightMotor.setInverted(true);
@@ -49,6 +52,9 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public double getAngle(){
+    return navX.getAngle();
   }
   @Override
   public void simulationPeriodic() {
